@@ -13,9 +13,9 @@
   <li
     *ngFor="let item of todoList"
     [ngClass]="{ checked: item.checked }"
-    (click)="toggleStatus(item)"
+    (click)="toggleStatus(item.id)"
   >
     {{ item.title }}
-    <span class="close" (click)="delete(item)"> × </span>
+    <span class="close" (click)="delete(item.id)"> × </span>
   </li>
 </ul>

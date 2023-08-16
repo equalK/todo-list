@@ -11,6 +11,7 @@ import { ToDoListItem } from './models/todo-list.models';
   styleUrls: ['./todo-list.component.scss'],
 })
 export class TodoListComponent {
+  private idAccumulate: number = 0;
   public inputTitle: string = '';
   public todoList: ToDoListItem[] = [];
 
@@ -21,6 +22,7 @@ export class TodoListComponent {
     }
 
     const newItem: ToDoListItem = {
+      id: ++this.idAccumulate,
       title: this.inputTitle,
       checked: false,
     };
@@ -29,15 +31,19 @@ export class TodoListComponent {
     this.inputTitle = '';
   }
 
-  public delete(item: ToDoListItem): void {
-    const index = this.todoList.findIndex((listItem) => listItem.title === item.title);
+  public delete(id: number): void {
+    const index = this.todoList.findIndex((listItem) => listItem.id === id);
     const beforeArr = [...this.todoList].splice(0, index);
     const afterArr = [...this.todoList].splice(index + 1, this.todoList.length);
 
     this.todoList = beforeArr.concat(afterArr);
   }
 
-  public toggleStatus(item: ToDoListItem): void {
-    item.checked = !item.checked;
+  public toggleStatus(id: number): void {
+    let selectedItem = this.todoList.find((listItem) => listItem.id === id);
+
+    if (selectedItem) {
+      selectedItem.checked = !selectedItem.checked;
+    }
   }
 }

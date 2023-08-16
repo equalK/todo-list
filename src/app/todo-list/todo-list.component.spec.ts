@@ -32,6 +32,7 @@ describe('TodoListComponent', () => {
 
     it('should add new item by input title', () => {
       const expected: ToDoListItem = {
+        id: 1,
         title: 'test',
         checked: false,
       };
@@ -45,11 +46,13 @@ describe('TodoListComponent', () => {
   describe('delete', () => {
     it('should delete selected item', () => {
       const deletedItem: ToDoListItem = {
+        id: 1,
         title: 'test1',
         checked: false,
       };
 
       const testItem2: ToDoListItem = {
+        id: 2,
         title: 'test2',
         checked: false,
       };
@@ -59,7 +62,7 @@ describe('TodoListComponent', () => {
       component.inputTitle = testItem2.title;
       component.add();
 
-      component.delete(deletedItem);
+      component.delete(1);
 
       expect(
         component.todoList.find(
@@ -72,6 +75,7 @@ describe('TodoListComponent', () => {
   describe('toggleStatus', () => {
     it('should checked be true if click unchecked item', () => {
       const testItem: ToDoListItem = {
+        id: 1,
         title: 'test',
         checked: false,
       };
@@ -82,23 +86,25 @@ describe('TodoListComponent', () => {
         (listItem) => listItem.title === testItem.title
       );
 
-      component.toggleStatus(targetItem!);
+      component.toggleStatus(1);
 
       expect(targetItem?.checked).toBeTruthy();
     });
 
     it('should checked be false if click checked item', () => {
       const testItem: ToDoListItem = {
+        id: 1,
         title: 'test',
-        checked: true,
+        checked: false,
       };
       component.inputTitle = testItem.title;
       component.add();
 
-      component.toggleStatus(testItem);
+      component.toggleStatus(1);
+      component.toggleStatus(1);
 
       const targetItem = component.todoList.find(
-        (listItem) => listItem.title === testItem.title
+        (listItem) => listItem.id === testItem.id
       );
       expect(targetItem?.checked).toBeFalsy();
     });
