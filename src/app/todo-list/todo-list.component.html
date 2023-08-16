@@ -1,0 +1,21 @@
+<div id="myDIV" class="header">
+  <h2 style="margin: 5px">My To Do List</h2>
+  <input
+    type="text"
+    id="myInput"
+    placeholder="Title..."
+    [(ngModel)]="inputTitle"
+  />
+  <span class="addBtn" (click)="add()">Add</span>
+</div>
+
+<ul id="myUL">
+  <li
+    *ngFor="let item of todoList"
+    [ngClass]="{ checked: item.checked }"
+    (click)="toggleStatus(item)"
+  >
+    {{ item.title }}
+    <span class="close" (click)="delete(item)"> × </span>
+  </li>
+</ul>
